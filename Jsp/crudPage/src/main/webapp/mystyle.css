@@ -1,0 +1,135 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+}
+
+body {
+	display: flex;
+}
+
+h1 {
+	font-weight: 700;
+}
+
+.outDiv {
+	background-color: midnightblue;
+	width: 15%;
+	height: 100vh;
+}
+
+img {
+	position: absolute;
+	width: 100px;
+	top: 10px;
+}
+
+.loginDiv {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	background: linear-gradient(to bottom right, green, blue);
+}
+
+.container {
+	display: flex;
+	width: 20%;
+	height: 50%;
+	box-sizing: border-box;
+	color: white;
+	flex-direction: column;
+	justify-content: space-between;
+	margin-left: 10px;
+}
+
+.DGSW {
+	width: 130px;
+}
+
+.main {
+	margin: 0 auto;
+	width: 1200px;
+	margin-left: 50px;
+	padding: 1.5rem;
+}
+
+.navLsit {
+	list-style: none;
+	padding: 0;
+	flex-direction: column;
+	height: 200px;
+	display: flex;
+	justify-content: space-around;
+}
+
+.navListli {
+	border-bottom: 1px solid transparent;
+}
+
+.goLogoutBtn, .goLoginBtn {
+	width: 100px;
+	color: white;
+	text-decoration: none;
+	color: white;
+}
+
+.navListli a {
+	color: white;
+	text-decoration: none;
+	transition: 0.5s;
+	font-size: 25px;
+}
+
+.navListli:hover a {
+	transition: 0.5s;
+	font-size: 28px;
+	border-bottom: 2px solid white;
+}
+
+.goLogoutBtn:hover, .goLoginBtn:hover {
+	text-decoration: none;
+	border-bottom: 1px solid white;
+}
+
+.loginForm {
+	display: flex;
+	flex-direction: column;
+	width: 500px;
+	height: 500px;
+	box-shadow: 4px 4px 15px rgb(0 0 0/ 10%);
+	border-radius: 15px;
+	justify-content: center;
+	align-items: center;
+	background: #fff;
+	position: relative;
+}
+
+input[type="submit"] {
+	color: black;
+	background-color: white;
+}
+
+input[type="submit"]:hover {
+	transition: 0.5s;
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+button[type="submit"] {
+	height: 30px;
+}
+
+.inputPw, .inputId {
+	width: 200px;
+	height: 30px;
+}
+
+.inputPw {
+	margin-bottom: 20px;
+}
+
+.loginBtn {
+	width: 200px;
+	height: 30px;
+}
