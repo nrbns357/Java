@@ -13,6 +13,7 @@ public abstract class AbstractCommand {
 		this.commandLine = commandLine;
 	}
 	
+	public boolean isExitCondition() {
 		return false;
 	}
 	
