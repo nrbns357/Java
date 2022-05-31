@@ -4,11 +4,14 @@ import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BoardManager {
-    public List<Board> doselect() throws Exception{
+    public List<Board> doselect(int pagenum) throws Exception{
+        int start = (pagenum-1)*5;
         List<Board> list = new ArrayList<>();
 
         Connection con = null;
@@ -16,7 +19,7 @@ public class BoardManager {
         ResultSet rs = null;
         try{
             con = DBManager.connect();
-            pstmt = con.prepareStatement("select * from board");
+            pstmt = con.prepareStatement("select * from board order by idx desc limit "+start+",5");
             rs = pstmt.executeQuery();
             while(rs.next()){
                 Board board = new Board();
@@ -34,12 +37,48 @@ public class BoardManager {
             DBManager.close(con,pstmt,rs);
         }
 
-        Board board = new Board();
-        board.setIdx(0);
-        board.setName("name");
 
-        list.add(board);
         return list;
     }
 
+    //
+    public int getPageCnt() throws Exception {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            con = DBManager.connect();
+            pstmt = con.prepareStatement("select ceil(count(idx)/5) as cnt from board");
+            rs = pstmt.executeQuery();
+            if(rs.next()){
+                return rs.getInt("cnt");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            DBManager.close(con,pstmt,rs);
+        }
+        return 1;
+    }
+
+    public void doinsert(Board board) throws Exception{
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        try{
+            con = DBManager.connect();
+            pstmt = con.prepareStatement("insert into board " +
+                    "(title,content,name,wdate) "+
+                    " values " +
+                    "(?,?,?,?)");
+            pstmt.setString(1, board.getTitle());
+            pstmt.setString(2, board.getContent());
+            pstmt.setString(3, board.getName());
+            pstmt.setString(4, LocalDateTime.now().toString());
+            pstmt.executeUpdate();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            DBManager.close(con,pstmt);
+        }
+    }
 }

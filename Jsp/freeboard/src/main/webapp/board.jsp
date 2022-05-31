@@ -3,8 +3,12 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.freeboard.Board" %>
 <%
+    String pagenum = request.getParameter("pagenum");
+    if(pagenum==null) pagenum="1";
     BoardManager bm = new BoardManager();
-    List<Board> list = bm.doselect();
+    List<Board> list = bm.doselect(Integer.parseInt(pagenum));
+    int pagecnt = bm.getPageCnt();
+
 %>
 <html>
 <head>
@@ -37,6 +41,18 @@
         <%}%>
         </tbody>
     </table>
+    <a class="btn btn-primary" href="insert.jsp">글쓰기</a>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item <%=(Integer.parseInt(pagenum)==1)?"disabled":""%> "><a class="page-link"  href="?pagenum=<%=Integer.parseInt(pagenum)-1%>">Previous</a></li>
+            <%for(int i =1; i<pagecnt+1;i++) {%>
+            <li class="page-item <%=(Integer.parseInt(pagenum)==i)?"active":""%>"><a class="page-link" href="?pagenum=<%=i%>"><%=i%></a></li>
+
+            <%}%>
+            <li class="page-item <%=(Integer.parseInt(pagenum)==pagecnt)?"disabled":""%>"><a class="page-link" href="?pagenum=<%=Integer.parseInt(pagenum)+1%>">Next</a></li>
+        </ul>
+    </nav>
 </div>
+
 </body>
 </html>
